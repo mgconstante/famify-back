@@ -15,12 +15,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(
+    name = "biblioteca_jogos",
     uniqueConstraints = {
         @UniqueConstraint(
             columnNames = {"biblioteca_id", "jogo_id"}
         )
     }
 )
+
 public class BibliotecaJogo {
 
     @Id
