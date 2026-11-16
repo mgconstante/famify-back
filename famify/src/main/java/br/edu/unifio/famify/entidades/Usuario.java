@@ -17,7 +17,7 @@ public class Usuario {
     private Integer id;
     private String nome;
     private String senha;
-    @Column(name = "steam_id")
+    @Column(name = "steam_id",unique = true, nullable = false)
     private String steamId;
 
 }
