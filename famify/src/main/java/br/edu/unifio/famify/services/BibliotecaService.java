@@ -4,7 +4,8 @@ package br.edu.unifio.famify.services;
 import br.edu.unifio.famify.dto.SteamGameDTO;
 import br.edu.unifio.famify.entidades.*;
 import br.edu.unifio.famify.repositorios.*;
-
+import br.edu.unifio.famify.dto.JogoDTO;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,4 +94,30 @@ public class BibliotecaService {
             }
         }
     }
+
+
+@Transactional(readOnly = true)
+public List<JogoDTO> buscarJogosPorUsuario(Integer usuarioId) {
+
+    Usuario usuario = usuarioRepositorio.findById(usuarioId)
+            .orElseThrow(() ->
+                    new RuntimeException("Usuário não encontrado"));
+
+    Biblioteca biblioteca = bibliotecaRepositorio
+            .findByUsuario(usuario)
+            .orElseThrow(() ->
+                    new RuntimeException("Biblioteca não encontrada"));
+
+    List<BibliotecaJogo> bibliotecaJogos =
+            bibliotecaJogoRepositorio.findByBiblioteca(biblioteca);
+
+    return bibliotecaJogos.stream()
+            .map(bj -> new JogoDTO(
+                    bj.getJogo().getId(),
+                    bj.getJogo().getAppid(),
+                    bj.getJogo().getNome()
+            ))
+            .collect(Collectors.toList());
+}
+
 }

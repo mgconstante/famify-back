@@ -1,1 +1,1 @@
-insert into usuario (nome,senha,steam_id) values ("Torini","456#","76561198417100326")
+insert into usuario (nome,senha,steam_id) values ("Guilherme","789#","76561198284269163")
