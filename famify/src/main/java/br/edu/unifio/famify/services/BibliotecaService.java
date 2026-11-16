@@ -45,7 +45,6 @@ public class BibliotecaService {
                     "Usuário não possui Steam ID");
         }
 
-        // Busca os jogos na API da Steam
         List<SteamGameDTO> jogosSteam =
                 steamService.buscarJogos(usuario.getSteamId());
 
@@ -57,7 +56,7 @@ public class BibliotecaService {
             Usuario usuario,
             List<SteamGameDTO> jogosSteam) {
 
-        // Busca a biblioteca ou cria uma nova
+        
         Biblioteca biblioteca = bibliotecaRepositorio
                 .findByUsuario(usuario)
                 .orElseGet(() -> {
@@ -68,7 +67,7 @@ public class BibliotecaService {
 
         for (SteamGameDTO jogoSteam : jogosSteam) {
 
-            // Busca o jogo no banco
+            
             Jogo jogo = jogoRepositorio
                     .findByAppid(jogoSteam.appid())
                     .orElseGet(() -> {
@@ -78,7 +77,7 @@ public class BibliotecaService {
                         return jogoRepositorio.save(novo);
                     });
 
-            // Verifica se já pertence à biblioteca
+            
             boolean existe = bibliotecaJogoRepositorio
                     .existsByBibliotecaAndJogo(biblioteca, jogo);
 
