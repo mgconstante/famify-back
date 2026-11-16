@@ -15,7 +15,7 @@ public class BibliotecaServiceTests {
     @Test
     void testarImportacaoBiblioteca() {
 
-        bibliotecaService.importarBiblioteca(1);
+        bibliotecaService.importarBiblioteca(2);
 
         System.out.println("Biblioteca importada!");
     }

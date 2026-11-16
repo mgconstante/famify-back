@@ -20,7 +20,7 @@ void testarBuscaDeJogos() {
     System.out.println(steamService);
 
     List<SteamGameDTO> jogos =
-            steamService.buscarJogos("76561198308706283");
+            steamService.buscarJogos("76561198417100326");
 
     for (SteamGameDTO jogo : jogos) {
         System.out.println(jogo.name());

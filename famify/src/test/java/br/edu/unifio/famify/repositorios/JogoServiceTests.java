@@ -14,7 +14,7 @@ public class JogoServiceTests {
     @Test
     void testarImportacaoDeJogos() {
 
-        jogoService.importarJogos("76561198308706283");
+        jogoService.importarJogos("76561198417100326");
 
         System.out.println("Jogos importados com sucesso!");
     }
