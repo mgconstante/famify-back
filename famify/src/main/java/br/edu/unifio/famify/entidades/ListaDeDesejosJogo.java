@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(
     uniqueConstraints = {
         @UniqueConstraint(
-            columnNames = {"biblioteca_id", "jogo_id"}
+            columnNames = {"lista_desejo_id", "jogo_id"}
         )
     }
 )

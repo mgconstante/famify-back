@@ -23,7 +23,7 @@ public class ListaDeDesejos {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", unique = true, nullable = false)
     private Usuario usuario;
     
     @OneToMany(

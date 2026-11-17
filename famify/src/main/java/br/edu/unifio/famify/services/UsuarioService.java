@@ -15,13 +15,17 @@ public class UsuarioService {
 
     private final UsuarioRepositorio usuarioRepositorio;
     private final BibliotecaService bibliotecaService;
+    private final ListaDeDesejosService desejosService;
 
     public UsuarioService(
             UsuarioRepositorio usuarioRepositorio,
-            BibliotecaService bibliotecaService) {
+            BibliotecaService bibliotecaService,
+            ListaDeDesejosService desejosService
+        ) {
 
         this.usuarioRepositorio = usuarioRepositorio;
         this.bibliotecaService = bibliotecaService;
+        this.desejosService = desejosService;
     }
 
     public List<UsuarioDTO> listarUsuarios() {
@@ -51,6 +55,8 @@ public class UsuarioService {
         Usuario usuarioSalvo = usuarioRepositorio.save(usuario);
 
         bibliotecaService.importarBiblioteca(usuarioSalvo.getId());
+
+        desejosService.criarListaDeDesejos(usuarioSalvo);
 
     return new UsuarioDTO(
             usuarioSalvo.getId(),

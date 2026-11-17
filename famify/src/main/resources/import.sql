@@ -1,1 +1,1 @@
-insert into usuario (nome,senha,steam_id) values ("Guilherme","789#","76561198284269163")
+insert into lista_de_desejos (usuario_id) value (4)
