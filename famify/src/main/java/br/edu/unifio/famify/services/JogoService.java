@@ -1,6 +1,7 @@
 package br.edu.unifio.famify.services;
 
 import br.edu.unifio.famify.dto.SteamGameDTO;
+import br.edu.unifio.famify.dto.JogoDTO;
 import br.edu.unifio.famify.entidades.Jogo;
 import br.edu.unifio.famify.repositorios.JogoRepositorio;
 
@@ -40,5 +41,17 @@ public class JogoService {
 
             jogoRepositorio.save(jogo);
         }
+    }
+
+    public List<JogoDTO> listarJogos() {
+
+        return jogoRepositorio.findAll()
+                .stream()
+                .map(jogo -> new JogoDTO(
+                    jogo.getId(),
+                    jogo.getAppid(),
+                    jogo.getNome()
+                ))
+                .toList();
     }
 }

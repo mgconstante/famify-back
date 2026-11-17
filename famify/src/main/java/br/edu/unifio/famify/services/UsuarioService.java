@@ -3,6 +3,7 @@ package br.edu.unifio.famify.services;
 import br.edu.unifio.famify.dto.CadastroUsuarioDTO;
 import br.edu.unifio.famify.dto.UsuarioDTO;
 import br.edu.unifio.famify.entidades.Usuario;
+import br.edu.unifio.famify.exceptions.UsuarioJaExisteException;
 import br.edu.unifio.famify.repositorios.UsuarioRepositorio;
 
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class UsuarioService {
 
     public UsuarioDTO cadastrarUsuario(CadastroUsuarioDTO dados){
     if (usuarioRepositorio.existsBySteamId(dados.steamId())) {
-        throw new IllegalArgumentException(
+        throw new UsuarioJaExisteException(
                 "Já existe um usuário cadastrado com esse Steam ID!"
         );
     }
