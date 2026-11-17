@@ -16,5 +16,7 @@ public interface BibliotecaJogoRepositorio extends JpaRepository<BibliotecaJogo,
             Jogo jogo
     );
     
-    List<BibliotecaJogo> findByBiblioteca(Biblioteca biblioteca);
+    List<BibliotecaJogo> findByBiblioteca(
+        Biblioteca biblioteca
+);
 }
