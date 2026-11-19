@@ -111,4 +111,42 @@ public void adicionarJogo(Integer usuarioId, Integer jogoId) {
 }
 
 
+@Transactional
+public void removerJogo(Integer usuarioId, Integer jogoId) {
+
+    
+    Usuario usuario = usuarioRepositorio.findById(usuarioId)
+            .orElseThrow(() ->
+                    new IllegalArgumentException(
+                            "Usuário não encontrado"
+                    ));
+
+   
+    ListaDeDesejos lista = listaDeDesejosRepositorio
+            .findByUsuario(usuario)
+            .orElseThrow(() ->
+                    new IllegalArgumentException(
+                            "Lista de desejos não encontrada"
+                    ));
+
+    
+    Jogo jogo = jogoRepositorio.findById(jogoId)
+            .orElseThrow(() ->
+                    new IllegalArgumentException(
+                            "Jogo não encontrado"
+                    ));
+
+    
+    ListaDeDesejosJogo listaJogo = listaDeDesejosJogoRepositorio
+            .findByListaDeDesejosAndJogo(lista, jogo)
+            .orElseThrow(() ->
+                    new IllegalArgumentException(
+                            "Esse jogo não está na lista de desejos!"
+                    ));
+
+    
+    listaDeDesejosJogoRepositorio.delete(listaJogo);
+}
+
+
 }

@@ -26,5 +26,14 @@ public class ListaDeDesejosController {
                 "Jogo adicionado à lista de desejos com sucesso!"
         );
     }
+
+    @DeleteMapping("/{usuarioId}/jogos/{jogoId}")
+    public ResponseEntity<Void> removerJogo(
+        @PathVariable Integer usuarioId,
+        @PathVariable Integer jogoId
+    ){
+        listaDeDesejosService.removerJogo(usuarioId,jogoId);
+        return ResponseEntity.noContent().build();
+    }
 }
 

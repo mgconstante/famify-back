@@ -6,6 +6,7 @@ import br.edu.unifio.famify.entidades.Jogo;
 import br.edu.unifio.famify.entidades.ListaDeDesejos;
 import br.edu.unifio.famify.entidades.ListaDeDesejosJogo;
 import java.util.List;
+import java.util.Optional;
 public interface ListaDeDesejosJogoRepositorio
         extends JpaRepository<ListaDeDesejosJogo, Integer> {
 
@@ -16,5 +17,9 @@ public interface ListaDeDesejosJogoRepositorio
 
     List<ListaDeDesejosJogo> findByListaDeDesejos(
         ListaDeDesejos listaDeDesejos
+);
+    Optional<ListaDeDesejosJogo> findByListaDeDesejosAndJogo(
+        ListaDeDesejos listaDeDesejos,
+        Jogo jogo
 );
 }
