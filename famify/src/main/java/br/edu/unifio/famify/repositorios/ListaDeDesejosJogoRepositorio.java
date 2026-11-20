@@ -22,4 +22,5 @@ public interface ListaDeDesejosJogoRepositorio
         ListaDeDesejos listaDeDesejos,
         Jogo jogo
 );
+        boolean existsByJogo(Jogo jogo);
 }

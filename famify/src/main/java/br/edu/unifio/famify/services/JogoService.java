@@ -3,10 +3,14 @@ package br.edu.unifio.famify.services;
 import br.edu.unifio.famify.dto.SteamGameDTO;
 import br.edu.unifio.famify.dto.JogoDTO;
 import br.edu.unifio.famify.entidades.Jogo;
+import br.edu.unifio.famify.repositorios.BibliotecaJogoRepositorio;
 import br.edu.unifio.famify.repositorios.JogoRepositorio;
+import br.edu.unifio.famify.repositorios.ListaDeDesejosJogoRepositorio;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -14,14 +18,20 @@ import java.util.List;
 public class JogoService {
 
     private final SteamService steamService;
-    private final JogoRepositorio jogoRepositorio;
+    private final JogoRepositorio jogoRepositorio;    
+    private final BibliotecaJogoRepositorio bibliotecaJogoRepositorio;
+    private final ListaDeDesejosJogoRepositorio listaJogoRepositorio;
 
     public JogoService(
             SteamService steamService,
-            JogoRepositorio jogoRepositorio) {
+            JogoRepositorio jogoRepositorio,
+            BibliotecaJogoRepositorio bibliotecaJogoRepositorio,
+            ListaDeDesejosJogoRepositorio listaJogoRepositorio) {
 
         this.steamService = steamService;
         this.jogoRepositorio = jogoRepositorio;
+        this.bibliotecaJogoRepositorio = bibliotecaJogoRepositorio;
+        this.listaJogoRepositorio = listaJogoRepositorio;
     }
 
     @Transactional
@@ -53,5 +63,32 @@ public class JogoService {
                     jogo.getNome()
                 ))
                 .toList();
+    }
+
+    @Transactional
+    public void excluirJogo(Integer jogoId) {
+
+        Jogo jogo = jogoRepositorio.findById(jogoId)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Jogo não encontrado"
+                        ));
+
+        if (bibliotecaJogoRepositorio.existsByJogo(jogo)) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "O jogo pertence à biblioteca de um usuário"
+            );
+        }
+
+        if (listaJogoRepositorio.existsByJogo(jogo)) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "O jogo está na lista de desejos de um usuário"
+            );
+        }
+
+        jogoRepositorio.delete(jogo);
     }
 }
