@@ -35,7 +35,8 @@ public class UsuarioService {
                 .map(usuario -> new UsuarioDTO(
                         usuario.getId(),
                         usuario.getNome(),
-                        usuario.getSteamId()
+                        usuario.getSteamId(),
+                        usuario.getEmail()
                 ))
                 .toList();
     }
@@ -51,6 +52,7 @@ public class UsuarioService {
         usuario.setNome(dados.nome());
         usuario.setSenha(dados.senha());
         usuario.setSteamId(dados.steamId());
+        usuario.setEmail(dados.email());
 
         Usuario usuarioSalvo = usuarioRepositorio.save(usuario);
 
@@ -61,7 +63,8 @@ public class UsuarioService {
     return new UsuarioDTO(
             usuarioSalvo.getId(),
             usuarioSalvo.getNome(),
-            usuarioSalvo.getSteamId()
+            usuarioSalvo.getSteamId(),
+            usuario.getEmail()
     );
     }
 }

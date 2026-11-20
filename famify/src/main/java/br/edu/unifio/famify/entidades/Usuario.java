@@ -19,5 +19,6 @@ public class Usuario {
     private String senha;
     @Column(name = "steam_id",unique = true, nullable = false)
     private String steamId;
-
+    @Column(unique=true)
+    private String email;
 }
